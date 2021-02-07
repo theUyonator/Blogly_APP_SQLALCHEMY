@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}Blogly Users{% endblock %}
+
+{% block content %}
+<div class="container">
+
+<h3>User Listing</h3>
+
+<div class="list-group">
+    {% for user in users %}
+
+    <a href="/user/{{user.id}}" class="list-group-item list-group-item-action">{{user.first_name}} {{user.last_name}}</a>
+
+    {% endfor %}
+  </div>
+  
+  <a class="btn btn-primary mt-3" href="/users/new" role="button">Add user</a>
+
+</div>
+
+
+{% endblock %}
