@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}Post Details{% endblock %}
+
+{% block content %}
+<div class="container">
+
+<h3>Post</h3>
+
+<div class="card" style="width: 25rem;">
+    <div class="card-header">
+        <h5 class="card-title">{{post.title}}</h5>
+      </div>
+    <div class="card-body">
+      <blockquote class="blockquote mb-0">
+        <p class="card-text">{{post.content}}</p>
+        <footer class="blockquote-footer">By {{post.rel.first_name}} {{post.rel.last_name}}</footer>
+      </blockquote>
+
+      <a href="/user/{{post.user_id}}" class="btn btn-outline-secondary mt-2">Back</a>
+      <a href="/posts/{{post.id}}/edit" class="btn btn-primary mt-2">Edit</a>
+      <a href="/posts/{{post.id}}/delete" class="btn btn-danger mt-2">Delete</a>
+
+    </div>
+
+
+</div>
+
+</div>
+
+
+{% endblock %}

@@ -16,6 +16,23 @@
       <a href="/users/{{user.id}}/edit" class="btn btn-primary">Edit</a>
       <a href="/users/{{user.id}}/delete" class="btn btn-danger">Delete</a>
 
+      <h5 class="mt-2">Posts</h5>
+
+<div class="list-group">
+    {% for post in posts %}
+    {% if post.title %}
+    <a href="/posts/{{post.id}}" class="list-group-item list-group-item-action">{{post.title}}</a>
+
+    {% else %}
+    <a href="/posts/{{post.id}}" class="list-group-item list-group-item-action">Post</a>
+
+    {% endif %}
+
+    {% endfor %}
+  </div>
+  
+  <a class="btn btn-primary mt-3" href="/users/{{user.id}}/posts/new" role="button">Add post</a>
+
     </div>
   </div>
 

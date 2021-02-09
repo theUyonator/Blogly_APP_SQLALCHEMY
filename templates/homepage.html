@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}Blogly Users{% endblock %}
+
+{% block content %}
+<div class="container">
+
+<h3>Blogly Recent Posts</h3>
+
+  <div class="list-group">
+    {% for post in posts %}
+    <a href="/posts/{{post.id}}" class="list-group-item list-group-item-action">
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1">{{post.title}}</h5>
+        <small>{{post.friendly_date}}</small>
+      </div>
+      <p class="mb-1">{{post.content}}</p>
+      <small>By {{post.rel.first_name}} {{post.rel.last_name}}</small>
+    </a>
+    {% endfor %}
+   
+  </div>
+  
+  <a class="btn btn-primary mt-3" href="/users" role="button">View Users</a>
+
+</div>
+
+
+{% endblock %}

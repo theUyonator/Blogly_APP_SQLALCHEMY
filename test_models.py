@@ -1,7 +1,7 @@
 from unittest import TestCase
 
 from app import app
-from models import db, User
+from models import db, User, Post
 
 # A test database is used so that our bd isn't cluttered 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///blogly_test_db'
@@ -32,3 +32,27 @@ class UserModelTestCase(TestCase):
 
         full_name = User.get_full_name(user.id)
         self.assertEquals(full_name, "Travis Kelce")
+
+
+class PostModelTestCase(TestCase):
+    """Test for the Post Model"""
+
+    def setUp(self):
+        """Clean up any existing posts"""
+
+        Post.query.delete()
+
+    def tearDown(self):
+        """Clean up any fouled transactions"""
+
+        db.session.rollback()
+
+    def test_friendly_date(self):
+        """This test method tests the friendly_date method iof the Post Model"""
+
+        post = Post(title="Just a test", content="This is just a test", created_at="2021-02-07 16:46:50.25151")
+        db.session.add(post)
+        db.session.commit()
+
+        friendly_date = post.friendly_date
+        self.assertIn("Sun Feb 7 2021, 4:46 PM", friendly_date)
