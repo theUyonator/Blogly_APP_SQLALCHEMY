@@ -56,7 +56,7 @@ class Post(db.Model):
                     primary_key = True, 
                     autoincrement = True)
 
-    title = db.Column(db.String(50), nullable = True)
+    title = db.Column(db.String(50), nullable = False)
 
     content = db.Column(db.String(100), nullable = False)
 
@@ -64,7 +64,7 @@ class Post(db.Model):
 
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
-    rel = db.relationship('User', backref='posts')
+    rel = db.relationship('User', cascade="all,delete", backref='posts')
 
     def __repr__(self):
         """This method shows info about this particular instance of the Post class"""
@@ -85,5 +85,50 @@ class Post(db.Model):
 
 
 
+class Tag(db.Model):
+    """This model holds all information of the structure of the tag table in the blogly db"""
+
+    __tablename__="tags"
+
+    id = db.Column(db.Integer,
+                    primary_key=True,
+                    autoincrement=True)
+    tag_name = db.Column(db.Text,
+                        nullable=False,
+                        unique=True)
+    posts = db.relationship("Post",
+                            secondary="post_tags",
+                            backref="tags",
+                            cascade="all,delete")
+
+
+    def __repr__(self):
+        """This method shows info about this particular instance of the Tag class"""
+
+        p = self
+
+        return f"<tag_name = {p.tag_name}"
+
+
+class PostTag(db.Model):
+    """This model holds all information of the structure of the post_tags table holding the many_to_many relationship btw posts and tags in the blogly db"""
+
+    __tablename__="post_tags"
+
+    post_id = db.Column(db.Integer,
+                        db.ForeignKey("posts.id"),
+                        primary_key=True)
+
+    tag_id = db.Column(db.Integer,
+                        db.ForeignKey("tags.id"),
+                        primary_key=True)
+
+    
+    def __repr__(self):
+        """This method shows info about this particular instance of the PostTag class"""
+
+        p = self
+
+        return f"<post_id = {p.post_id} tag_id = {p.tag_id}"
 
     

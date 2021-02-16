@@ -1,6 +1,6 @@
 """Seed file to make sample data for the blogly db"""
 
-from models import User, Post, db
+from models import User, Post, Tag, PostTag, db
 from app import app
 
 # Create all tables
@@ -11,6 +11,8 @@ db.create_all()
 # If table isn't empty, empty it 
 User.query.delete()
 Post.query.delete()
+Tag.query.delete()
+PostTag.query.delete()
 
 # Add users 
 
@@ -43,7 +45,7 @@ Mahomes_superbowl = Post(title = "Brady the GOAT", content = "Man I wish I hadn'
 
 Kyler_letting_go = Post(title = "Arizona on some BS!", content = "Man I am carrying this team on my back, me and DHOP!", user_id = 3)
 
-Lamar_no_win = Post(content = "Man when will a brother like me win a SB dawg, I done tried you feel me!", user_id = 4)
+Lamar_no_win = Post(title="What else can a black man do?" content = "Man when will a brother like me win a SB dawg, I done tried you feel me!", user_id = 4)
 
 
 db.session.add(shauns_statement)
@@ -55,3 +57,25 @@ db.session.add(Lamar_no_win)
 
 db.session.commit()
 
+
+
+fun = Tag(tag_name="fun")
+funny = Tag(tag_name="funny")
+sad = Tag(tag_name="sad")
+disappoint = Tag(tag_name="disappointment")
+facts = Tag(tag_name="facts")
+
+db.session.add(fun)
+db.session.add(funny)
+db.session.add(sad)
+db.session.add(disappoint)
+
+db.session.commit()
+
+shauns_statement.tags.append(disappoint)
+shaun_on_culley.tags.append(facts)
+Mahomes_superbowl.tags.append(sad)
+Kyler_letting_go.tags.append(facts)
+Lamar_no_win.tags.append(sad)
+
+db.session.commit()

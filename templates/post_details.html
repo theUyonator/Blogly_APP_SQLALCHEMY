@@ -16,6 +16,13 @@
         <p class="card-text">{{post.content}}</p>
         <footer class="blockquote-footer">By {{post.rel.first_name}} {{post.rel.last_name}}</footer>
       </blockquote>
+      {% if tags %}
+      <p><b>Tags:</b>
+      {% for tag in tags %}
+      <a href="/tags/{{tag.id}}" class="badge badge-primary">{{tag.tag_name}}</a>
+      {% endfor %}
+      </p>
+      {% endif %}
 
       <a href="/user/{{post.user_id}}" class="btn btn-outline-secondary mt-2">Back</a>
       <a href="/posts/{{post.id}}/edit" class="btn btn-primary mt-2">Edit</a>
